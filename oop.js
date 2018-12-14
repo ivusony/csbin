@@ -226,16 +226,21 @@ function userFactory(name, score) {
   return user;
 }
 
-var adminFunctionStore /* Put code here */ ;
+var adminFunctionStore = Object.create(userFunctionStore) ;
 
 function adminFactory(name, score) {
   // Put code here
+    let admin = userFactory.call(this, name, score);
+    this.type = 'Admin';
+    return admin;
 }
+
+adminFactory.prototype =  adminFunctionStore;
 
 /* Put code here for a method called sharePublicMessage*/
 
 var adminFromFactory = adminFactory("Eva", 5);
 
 // /********* Uncomment these lines to test your work! *********/
-// adminFromFactory.sayType() // -> Logs "I am a Admin"
+adminFromFactory.sayType() // -> Logs "I am a Admin"
 // adminFromFactory.sharePublicMessage() // -> Logs "Welcome users!"
