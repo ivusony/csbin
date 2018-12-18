@@ -1,5 +1,7 @@
 //https://adriann.github.io/programming_problems.html
 
+//USING CLOSURES AND RECURSION
+
 //1.
 //Write a function that returns the longest element in a list and removes the shortest after each call
 (function(){
