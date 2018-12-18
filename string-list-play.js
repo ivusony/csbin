@@ -204,8 +204,10 @@
             let obj = Object.create(methods);
             //adding input to input property
             if(typeof input==='object'){
+                //if array is passed, assign it to input prop
                 obj.input = input;
             }else{
+                //else if more than one argument is passed or just one is passed, put it in array and assign to input prop
                 arguments.length>1 ? obj.input=argsToArr(arguments) : obj.input = singleToArr(input);
             }
             return obj;
@@ -214,5 +216,32 @@
     }
 
     const sort = sorter();
-    sort('ivan').byNumber()
+    // sort(45,21,2,3,8,0,13).byNumber()
+})();
+
+//concacenate and sort arrays
+(function(){
+    function concatenate(){
+        const methods = (function(){
+            return {
+                merge: function(){
+                    let tempArray = [];
+                    for(let key in this.args){
+                       this.args[key].forEach(el=>{
+                           !tempArray.includes(el) ? tempArray.push(el) : undefined
+                       })
+                    }    
+                    console.log(tempArray);
+                }
+            }
+        })()
+        function worker(input){
+            const obj = Object.create(methods);
+            obj.args = arguments;
+            return obj
+        }
+        return worker
+    }
+    const $ = concatenate();
+    $([4,8,2,5,6,9], [1,2,8,9,0], [12,45,2,67,12,18,0]).merge()
 })();
