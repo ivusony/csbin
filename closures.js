@@ -101,23 +101,66 @@ function once(func) {
 var onceFunc = once(addByTwo);
 
 // UNCOMMENT THESE TO TEST YOUR WORK!
-console.log(onceFunc(4));  //should log 6
-console.log(onceFunc(10));  //should log 6
-console.log(onceFunc(9001));  //should log 6
+// console.log(onceFunc(4));  //should log 6
+// console.log(onceFunc(10));  //should log 6
+// console.log(onceFunc(9001));  //should log 6
 
+
+// Write a function after that takes the number of times the callback needs to be called before being executed as the first parameter and the callback as the second parameter. 
 
 function after(count, func) {
-
+    let counter = 0;
+    function inner(){
+        counter++
+        if(counter<count){
+            console.log(counter +' ' + count)
+            return
+        }else{
+            called()
+        }
+    }
+    return inner
 }
 
 var called = function() { console.log('hello') };
 var afterCalled = after(3, called);
 
-// afterCalled(); // -> nothing is printed
-// afterCalled(); // -> nothing is printed
-// afterCalled(); // -> 'hello' is printed
+afterCalled(); // -> nothing is printed
+afterCalled(); // -> nothing is printed
+afterCalled(); // -> 'hello' is printed
 
 
 function delay(func, wait) {
 
 }
+
+
+
+
+function closedOver(){
+    let counter = 0;
+    let methods = {
+        greet: function(){
+            console.log('Hello')
+        },
+        incrementCounter: function(num){
+            counter+=num;
+            console.log(counter);
+            return
+        },
+    }
+    
+
+    function inner(){
+        let obj = Object.create(methods);
+        return obj;
+    }
+    return inner;
+}
+
+
+let objectMaker = closedOver();
+let newObj = objectMaker();
+
+newObj.incrementCounter(20);
+newObj.incrementCounter(50);
