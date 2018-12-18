@@ -1,3 +1,5 @@
+//https://adriann.github.io/programming_problems.html
+
 //1.
 //Write a function that returns the longest element in a list and removes the shortest after each call
 (function(){
@@ -158,8 +160,57 @@
     const methods = addToTotal();
     // console.log(methods.add('Ivan'));
     // console.log(methods.add('Boris'));
-    methods.add(['ivan', 'boris']);
-    console.log(methods.print());
+    // methods.add(['ivan', 'boris']);
+    // console.log(methods.print());
     
     
+})();
+
+
+(function(){
+    function sorter(){
+        let methods = {
+            byNumber:function(){
+               console.log(this.input)
+            }
+        }
+
+        function checkNumber(){
+            return typeof this.input==='number' ? true : false
+        }
+        //if passed more than one argument, return array
+        function argsToArr(args){
+            let arr = [];
+            for(let key in args){
+                arr.push(args[key])
+            }
+            return arr;
+        }
+        //make array from string
+        function singleToArr(input){
+            let arr = [];
+            if(typeof input==='string'){
+                arr = input.split(' ');
+            }else{
+                arr.push(input)
+            }
+            return arr;
+        }
+
+        function inner(input){
+            //creating new obj with proto linked to method obj
+            let obj = Object.create(methods);
+            //adding input to input property
+            if(typeof input==='object'){
+                obj.input = input;
+            }else{
+                arguments.length>1 ? obj.input=argsToArr(arguments) : obj.input = singleToArr(input);
+            }
+            return obj;
+        }
+        return inner;
+    }
+
+    const sort = sorter();
+    sort('ivan').byNumber()
 })();
