@@ -243,5 +243,58 @@
         return worker
     }
     const $ = concatenate();
-    $([4,8,2,5,6,9], [1,2,8,9,0], [12,45,2,67,12,18,0]).merge()
+    // $([4,8,2,5,6,9], [1,2,8,9,0], [12,45,2,67,12,18,0]).merge()
 })();
+
+//convert string to array of words, filter words, return new array
+(function(){
+    function stringToArray(){
+        let dataStore = (function(){
+            return {
+                filteredArray: [],
+                filteredString : '',
+                display: function(){
+                    console.log(this);
+                }
+            }
+        })();
+        let setup = (function(){
+            return {
+                str2ignore:['a', 'to' ,'is', 'of']
+            }
+        })();
+        function inner(string){
+            let c1 = 0,
+                c2 = 0;
+            let temp = string.split(' ');
+            
+            function filterArray(element){
+                if(c1>=temp.length){return false};
+                if(!setup.str2ignore.includes(element)){dataStore.filteredArray.push(element)}
+                c1++;
+                filterArray(temp[c1]);
+            }
+            filterArray(temp[c1]);
+
+            function filterString(element){
+                if(c2>=dataStore.filteredArray.length){return false};
+                dataStore.filteredString+= ' '+element;
+                c2++;
+                filterString(dataStore.filteredArray[c2]);
+            }
+            filterString(dataStore.filteredArray[c2])
+
+            return dataStore;
+        }
+        return inner;
+    }
+
+    let str2arr = stringToArray();
+    // str2arr("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.").display();
+})();
+
+(function() {
+    var a = b = 5;
+  })();
+  
+  console.log(b);
